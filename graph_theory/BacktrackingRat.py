@@ -1,24 +1,17 @@
 from typing import List
 
 # helps print the 2D List : matrix
-xprint = lambda matrix: [[[print(item,end=" ") for item in rows],print()] for rows in matrix]
-def mprint(
-    matrix: List[List[int]]
-) -> None:
-    for rows in matrix:
-        for item in rows:
-            print(item,end=" ")
-        print()
+mprint = lambda matrix: [[[print(item,end=" ") for item in rows],print()] for rows in matrix]
 
 # right-down only solution to the maze        
 isReached = False  
 def final_solve(
-    maze: List[List[int]], 
-    solution: List[List[int]],
-    x: int = 0,
-    y: int = 0,
-    xf: int = 3,
-    yf: int = 3
+    maze: List[List[int]],      # maze matrix
+    solution: List[List[int]],  # solution matrix
+    x: int = 0,                 # initial x position
+    y: int = 0,                 # initial y position
+    xf: int = 3,                # goal x position
+    yf: int = 3                 # goal y position
 ) -> List[List[int]]: 
     global isReached
     if y == yf and x == xf:
@@ -37,7 +30,7 @@ def final_solve(
         if isReached == False:
             solution[y][x] = 0
             
-# Prints the coordinates where the solution is added / removed          
+# For Debugging        
 def printer(x,y,grid,xf=3,yf=3): 
     global isReached
     print("X: {}, Y: {}, G[Y][X]: {}".format(x,y,grid[y][x]))  
@@ -59,13 +52,13 @@ def main():
                     [1, 1, 1, 1],
                     [0, 1, 0, 0],
                     [1, 1, 1, 1]]
-    empty_matrix = [[0 for x in range(len(maze_matrix[0]))] for y in range(len(maze_matrix))]
+    solution_matrix = [[0 for x in range(len(maze_matrix[0]))] for y in range(len(maze_matrix))]
+    print("Maze")
     mprint(maze_matrix)
-    print()
-    final_solve(maze_matrix,empty_matrix)
-    #printer(0,0,maze_matrix,xf=len(maze_matrix)-2,yf=len(maze_matrix)-1)
-    print()
-    mprint(empty_matrix)
+    final_solve(maze_matrix,solution_matrix)
+    # printer(0,0,maze_matrix,xf=len(maze_matrix)-2,yf=len(maze_matrix)-1) # debug
+    print("Solution")
+    mprint(solution_matrix)
     
 
 if __name__ == "__main__":
